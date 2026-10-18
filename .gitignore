@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+run_server.bat
+venv_audio
+x_spectrogram_data.npy
+y_gender_labels.npy

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceAI | Gender Recognition</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-wave-square"></i> VoiceAI
+        </div>
+        <div class="nav-links">
+            <a href="#">About</a>
+            <a href="#">Models</a>
+        </div>
+        <button class="nav-btn">DOCUMENTATION</button>
+    </nav>
+
+    <main class="hero-section">
+        <div class="hero-content">
+            <h1 class="main-title">Identify <span class="highlight">Gender.</span></h1>
+            <p class="subtitle">Upload your voice or record directly. Powered by advanced Machine Learning and Deep Learning architectures.</p>
+            
+            <div class="control-panel">
+                <div class="panel-section">
+                    <h3>1. Select Architecture</h3>
+                    <div class="custom-select">
+                        <select id="modelSelect">
+                            <option value="rf">Random Forest (Recommended)</option>
+                            <option value="svm">Support Vector Machine</option>
+                            <option value="lr">Logistic Regression</option>
+                            <option value="cnn">CNN (Deep Learning)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panel-section" id="scenarioContainer">
+                    <h3>2. Feature Extraction</h3>
+                    <div class="custom-select">
+                        <select id="scenarioSelect">
+                            <option value="3">Scenario 3: Hybrid (MFCC + Pitch)</option>
+                            <option value="1">Scenario 1: MFCC Only</option>
+                            <option value="2">Scenario 2: Pitch Only</option>
+                        </select>
+                    </div>
+                    <small class="scenario-note">Baseline spectral & time features included.</small>
+                </div>
+            </div>
+
+            <div class="audio-input-area">
+                <div class="upload-box" id="uploadBox">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Drag & drop audio file or <strong>browse</strong></p>
+                    <small>Max 5 seconds (WAV, MP3, OGG)</small>
+                    <input type="file" id="audioUpload" accept="audio/*" hidden>
+                </div>
+                
+                <div class="divider"><span>OR</span></div>
+                
+                <div class="record-box">
+                    <button id="recordBtn" class="record-btn">
+                        <i class="fa-solid fa-microphone"></i> Start Recording
+                    </button>
+                    <p id="recordStatus">Ready to record (Max 5s)</p>
+                </div>
+            </div>
+
+            <div class="action-area">
+                <button id="analyzeBtn" class="btn-primary" disabled>ANALYZE AUDIO</button>
+                <div id="audioPlayerContainer" class="hidden">
+                    <audio id="audioPlayback" controls></audio>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="hero-visuals">
+            <!-- Decorative 3D-like CSS shapes inspired by Squarespace template -->
+            <div class="shape circle-shape"></div>
+            <div class="shape pill-shape"></div>
+            <div class="shape arch-shape"></div>
+            
+            <!-- Result Card -->
+            <div class="result-card" id="resultCard">
+                <div class="card-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="status-text">Awaiting Input...</h4>
+                    <div id="loader" class="loader hidden">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <div id="predictionResult" class="hidden">
+                        <div class="gender-icon" id="genderIcon"></div>
+                        <h2 id="genderText">Male</h2>
+                        <p class="model-info">Model: <span id="modelUsed">RF</span> | <span id="scenarioUsed">Scenario 3</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
